@@ -16,7 +16,7 @@
             <a href="<?php echo base_url('admin'); ?>" class="nav-link">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Customer</a>
+            <a href="<?php echo base_url('admin/customer'); ?>" class="nav-link">Customer</a>
           </li>
           <li class="nav-item">
             <a href="<?php echo base_url('admin/kelas'); ?>" class="nav-link">Kelas</a>

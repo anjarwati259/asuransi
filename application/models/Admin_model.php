@@ -86,4 +86,33 @@ class Admin_model extends CI_Model
 	public function add_detail_produk($data){
 		$this->db->insert('tb_detail_produk', $data);
 	}
+
+	// ==================== Detail produk ===================
+	public function customer(){
+		$this->db->select('tb_customer.*,tb_kelas.nama_kelas');
+		$this->db->from('tb_customer');
+		$this->db->join('tb_kelas','tb_kelas.id_kelas = tb_customer.id_kelas','left');
+		$this->db->order_by('tb_customer.id_customer','asc');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function add_customer($data){
+		$this->db->insert('tb_customer', $data);
+	}
+	public function get_customer($id){
+		$this->db->select('tb_customer.*,tb_kelas.nama_kelas');
+		$this->db->from('tb_customer');
+		$this->db->join('tb_kelas','tb_kelas.id_kelas = tb_customer.id_kelas','left');
+		$this->db->where('tb_customer.id_customer',$id);
+		$query = $this->db->get();
+		return $query->row();
+	}
+	public function edit_customer($data){
+		$this->db->where('id_customer', $data['id_customer']);
+		$this->db->update('tb_customer',$data);
+	}
+	public function del_customer($id){
+		$this->db->where('id_customer', $id);
+		$this->db->delete('tb_customer');
+	}
 }

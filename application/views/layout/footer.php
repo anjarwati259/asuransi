@@ -34,6 +34,14 @@
 <script src="<?php echo base_url() ?>assets/dist/js/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url() ?>assets/dist/js/adminlte.min.js"></script>
+<!-- datepicker -->
+<script src="<?php echo base_url()?>assets/dist/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+  $('#tanggal_lahir').datepicker({
+      autoclose: true,
+      format:'yyyy-mm-dd'
+    });
+</script>
 <?php include(APPPATH.'views/ajax/main_ajax.php'); ?>
 </body>
 </html>

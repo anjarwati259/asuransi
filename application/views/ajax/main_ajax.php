@@ -212,5 +212,155 @@
 	            }
 	        });
 	  	});
+
+	  	// ======================== customer =======================
+	  	$("body").on("click","#input-customer",function(){
+	    	// console.log('bisa');
+	    	var id_customer = $("#id_customer").val();
+	    	var nik = $("#nik").val();
+	    	var id_kelas = $("#id_kelas").val();
+	    	var nama_pasien = $("#nama_pasien").val();
+	    	var no_hp = $("#no_hp").val();
+	    	var alamat = $("#alamat").val();
+	    	var tempat_lahir = $("#tempat_lahir").val();
+	    	var tanggal_lahir = $("#tanggal_lahir").val();
+	    	var jenis_kelamin = $("#jenis_kelamin").val();
+	    	var umur = $("#umur").val();
+	    	var agama = $("#agama").val();
+	    	var pekerjaan = $("#pekerjaan").val();
+
+	    	var data = {id_customer:id_customer,
+	    				nik:nik,
+	    				id_kelas:id_kelas,
+	    				nama_pasien:nama_pasien,
+	    				no_hp:no_hp,
+	    				alamat:alamat,
+	    				tempat_lahir:tempat_lahir,
+	    				tanggal_lahir:tanggal_lahir,
+	    				jenis_kelamin:jenis_kelamin,
+	    				umur:umur,
+	    				agama:agama,
+	    				pekerjaan:pekerjaan,
+	    			}
+
+	    	// console.log(data);
+	    	$.ajax({
+	            type: 'POST',
+	            url: "<?php echo base_url('admin/add_customer'); ?>",
+	            data:data,
+	            dataType : 'json',
+	            success: function(data) {
+	              // console.log(data);
+	              if (data=='sukses') {
+	                localStorage.setItem("sukses",data)
+	                window.location.reload(); 
+	              }else if(data=='error'){
+	                $('#modal-input').modal('hide');
+	                toastr.error("Data Ada yg belum diisi, Silahkan lengkapi!!!");
+	              }
+	            }
+	        });
+	    });
+
+	    //set detail data
+	    $("body").on("click","#detail",function(){
+	    	var id_customer = $(this).data('id');
+	      	$.ajax({
+	            type: 'POST',
+	            url: "<?php echo base_url('admin/detail_customer'); ?>",
+	            data:{id_customer:id_customer},
+	            dataType : 'json',
+	            success: function(hasil) {
+	              $(".nama_pasien").text(hasil.nama_pasien);
+	              $(".id_customer").text(hasil.id_customer);
+	              $(".nik").text('NIK: '+ hasil.NIK);
+	              $(".kelas").text('Kelas: '+hasil.nama_kelas);
+	              $(".no_hp").text('No HP: '+hasil.no_hp);
+	              $(".alamat").text('Alamat: '+hasil.alamat);
+	              $(".tempat_lahir").text('Tempat Lahir: '+hasil.tempat_lahir);
+	              $(".tanggal_lahir").text('Tanggal Lahir: '+hasil.tanggal_lahir);
+	              $(".jenis_kelamin").text('Jenis Kelamin: '+hasil.jenis_kelamin);
+	              $(".umur").text('Umur: '+hasil.umur);
+	              $(".agama").text('Agama: '+hasil.agama);
+	              $(".pekerjaan").text('Pekerjaan: '+hasil.pekerjaan);
+
+	              console.log(hasil);
+	            }
+	        });
+	    });
+
+	    $("body").on("click",".edit-customer",function(){
+	    	var id_customer = $(this).data('id');
+	      	$.ajax({
+	            type: 'POST',
+	            url: "<?php echo base_url('admin/detail_customer'); ?>",
+	            data:{id_customer:id_customer},
+	            dataType : 'json',
+	            success: function(hasil) {
+	              $("#nama_pasien_edit").val(hasil.nama_pasien);
+	              $("#id_customer_edit").val(hasil.id_customer);
+	              $("#nik_edit").val(hasil.NIK);
+	              $("#id_kelas_edit").val(hasil.id_kelas).change();
+	              $("#no_hp_edit").val(hasil.no_hp);
+	              $("#alamat_edit").val(hasil.alamat);
+	              $("#tempat_lahir_edit").val(hasil.tempat_lahir);
+	              $("#tanggal_lahir_edit").val(hasil.tanggal_lahir);
+	              $("#jenis_kelamin_edit").val(hasil.jenis_kelamin).change();
+	              $("#umur_edit").val(hasil.umur);
+	              $("#agama_edit").val(hasil.agama);
+	              $("#pekerjaan_edit").val(hasil.pekerjaan);
+
+	              console.log(hasil);
+	            }
+	        });
+	    });
+
+	    $("body").on("click","#edit-customer",function(){
+	    	// console.log('bisa');
+	    	var id_customer = $("#id_customer_edit").val();
+	    	var nik = $("#nik_edit").val();
+	    	var id_kelas = $("#id_kelas_edit").val();
+	    	var nama_pasien = $("#nama_pasien_edit").val();
+	    	var no_hp = $("#no_hp_edit").val();
+	    	var alamat = $("#alamat_edit").val();
+	    	var tempat_lahir = $("#tempat_lahir_edit").val();
+	    	var tanggal_lahir = $("#tanggal_lahir_edit").val();
+	    	var jenis_kelamin = $("#jenis_kelamin_edit").val();
+	    	var umur = $("#umur_edit").val();
+	    	var agama = $("#agama_edit").val();
+	    	var pekerjaan = $("#pekerjaan_edit").val();
+
+	    	var data = {id_customer:id_customer,
+	    				nik:nik,
+	    				id_kelas:id_kelas,
+	    				nama_pasien:nama_pasien,
+	    				no_hp:no_hp,
+	    				alamat:alamat,
+	    				tempat_lahir:tempat_lahir,
+	    				tanggal_lahir:tanggal_lahir,
+	    				jenis_kelamin:jenis_kelamin,
+	    				umur:umur,
+	    				agama:agama,
+	    				pekerjaan:pekerjaan,
+	    			}
+
+	    	// console.log(data);
+	    	$.ajax({
+	            type: 'POST',
+	            url: "<?php echo base_url('admin/edit_customer'); ?>",
+	            data:data,
+	            dataType : 'json',
+	            success: function(data) {
+	              // console.log(data);
+	              if (data=='sukses') {
+	                localStorage.setItem("edit",data)
+	                window.location.reload(); 
+	              }else if(data=='error'){
+	                $('#modal-input').modal('hide');
+	                toastr.error("Data Ada yg belum diisi, Silahkan lengkapi!!!");
+	              }
+	            }
+	        });
+	    });
 	});
 </script>

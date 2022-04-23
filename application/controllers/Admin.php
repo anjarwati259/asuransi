@@ -151,4 +151,107 @@ class Admin extends CI_Controller {
 			echo json_encode('sukses');
 		}
 	}
+
+	// ========================== customer ============================
+	public function customer(){
+		$kode = substr(str_shuffle('0123456789'),1,8);
+		$id_customer = 'R-'. $kode;
+
+		$customer = $this->admin_model->customer();
+		$data_kelas = $this->admin_model->kelas();
+
+		$data = array('title' => 'Data Produk',
+						'id_customer' => $id_customer,
+						'kelas' => $data_kelas,
+						'customer' => $customer,
+                        'isi' => 'admin/data_customer' );
+        $this->load->view('layout/wrapper',$data, FALSE);
+	}
+	public function add_customer(){
+		$this->form_validation->set_rules('id_customer', 'id_customer', 'required');
+		$this->form_validation->set_rules('nik', 'nik', 'required');
+		$this->form_validation->set_rules('id_kelas', 'id_kelas', 'required');
+		$this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
+		$this->form_validation->set_rules('no_hp', 'no_hp', 'required');
+		$this->form_validation->set_rules('alamat', 'alamat', 'required');
+		$this->form_validation->set_rules('tempat_lahir', 'tempat_lahir', 'required');
+		$this->form_validation->set_rules('tanggal_lahir', 'tanggal_lahir', 'required');
+		$this->form_validation->set_rules('jenis_kelamin', 'jenis_kelamin', 'required');
+		$this->form_validation->set_rules('umur', 'umur', 'required');
+		$this->form_validation->set_rules('agama', 'agama', 'required');
+		$this->form_validation->set_rules('pekerjaan', 'pekerjaan', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			echo json_encode('error');
+		}else{
+			$i 	= $this->input;
+			$data = array(	'id_customer' => $i->post('id_customer'),
+							'nik'	=> $i->post('nik'),
+							'id_kelas' => $i->post('id_kelas'),
+							'nama_pasien' => $i->post('nama_pasien'),
+							'jenis_kelamin'	=> $i->post('jenis_kelamin'),
+							'no_hp' => $i->post('no_hp'),
+							'alamat'	=> $i->post('alamat'),
+							'tempat_lahir' => $i->post('tempat_lahir'),
+							'tanggal_lahir'	=> $i->post('tanggal_lahir'),
+							'umur'	=> $i->post('umur'),
+							'agama' => $i->post('agama'),
+							'pekerjaan'	=> $i->post('pekerjaan'),
+						);
+			//echo json_encode($data);
+			$this->admin_model->add_customer($data);
+			echo json_encode('sukses');
+		}
+	}
+
+	// menampilkan data produk berdasarkan id
+	public function detail_customer(){
+		$id_customer 	= $this->input->post('id_customer');
+		$customer = $this->admin_model->get_customer($id_customer);
+
+		echo json_encode($customer);
+	}
+
+	public function edit_customer(){
+		$this->form_validation->set_rules('id_customer', 'id_customer', 'required');
+		$this->form_validation->set_rules('nik', 'nik', 'required');
+		$this->form_validation->set_rules('id_kelas', 'id_kelas', 'required');
+		$this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
+		$this->form_validation->set_rules('no_hp', 'no_hp', 'required');
+		$this->form_validation->set_rules('alamat', 'alamat', 'required');
+		$this->form_validation->set_rules('tempat_lahir', 'tempat_lahir', 'required');
+		$this->form_validation->set_rules('tanggal_lahir', 'tanggal_lahir', 'required');
+		$this->form_validation->set_rules('jenis_kelamin', 'jenis_kelamin', 'required');
+		$this->form_validation->set_rules('umur', 'umur', 'required');
+		$this->form_validation->set_rules('agama', 'agama', 'required');
+		$this->form_validation->set_rules('pekerjaan', 'pekerjaan', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			echo json_encode('error');
+		}else{
+			$i 	= $this->input;
+			$data = array(	'id_customer' => $i->post('id_customer'),
+							'nik'	=> $i->post('nik'),
+							'id_kelas' => $i->post('id_kelas'),
+							'nama_pasien' => $i->post('nama_pasien'),
+							'jenis_kelamin'	=> $i->post('jenis_kelamin'),
+							'no_hp' => $i->post('no_hp'),
+							'alamat'	=> $i->post('alamat'),
+							'tempat_lahir' => $i->post('tempat_lahir'),
+							'tanggal_lahir'	=> $i->post('tanggal_lahir'),
+							'umur'	=> $i->post('umur'),
+							'agama' => $i->post('agama'),
+							'pekerjaan'	=> $i->post('pekerjaan'),
+						);
+			//echo json_encode($data);
+			$this->admin_model->edit_customer($data);
+			echo json_encode('sukses');
+		}
+	}
+
+	public function del_customer($id){
+		$this->admin_model->del_customer($id);
+		$this->session->set_flashdata('sukses', 'Data telah dihapus');
+		redirect(base_url('admin/customer'), 'refresh');
+	}
 }
