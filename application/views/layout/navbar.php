@@ -12,6 +12,7 @@
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
+          <?php if($this->session->userdata('hak_akses')=='1'){ ?>
           <li class="nav-item">
             <a href="<?php echo base_url('admin'); ?>" class="nav-link">Dashboard</a>
           </li>
@@ -29,6 +30,14 @@
 
             </ul>
           </li>
+        <?php }else if($this->session->userdata('hak_akses')=='2'){ ?>
+          <li class="nav-item">
+            <a href="<?php echo base_url('kasir'); ?>" class="nav-link">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('kasir/klaim'); ?>" class="nav-link">Klaim Asuransi</a>
+          </li>
+        <?php } ?>
           <li class="nav-item">
             <a href="index3.html" class="nav-link">Riwayat Klaim</a>
           </li>
@@ -41,11 +50,11 @@
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-user"></i>
-            <span>bisa</span>
+            <span><?php echo $this->session->userdata('nama_user'); ?></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
+            <a href="<?php echo base_url('login/logout') ?>" class="dropdown-item">
               <i class="fa fa-lock mr-2"></i>Logout
             </a>
           </div>
