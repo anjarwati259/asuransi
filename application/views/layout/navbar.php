@@ -39,7 +39,7 @@
           </li>
         <?php } ?>
           <li class="nav-item">
-            <a href="index3.html" class="nav-link">Riwayat Klaim</a>
+            <a href="<?php echo base_url('kasir/detail_klaim'); ?>" class="nav-link">Riwayat Klaim</a>
           </li>
         </ul>
       </div>

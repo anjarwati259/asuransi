@@ -2,6 +2,7 @@
   <div class="container">
   	<div class="row">
   		<div class="col-md-12">
+  			<?php echo $id_klaim; ?>
   			<div class="card card-outline card-primary">
               <!-- /.card-header -->
               <div class="card-body">
@@ -141,6 +142,9 @@
 		        <input type="hidden" id="status">
               </div>
               <!-- /.card-body -->
+              <div class="card-footer text-right">
+              	<button class="btn btn-info" id="btn-simpan">Simpan</button>
+			  </div>
             </div>
             <!-- /.card -->
   		</div>

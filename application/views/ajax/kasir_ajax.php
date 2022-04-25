@@ -115,20 +115,45 @@
 	        });
       });
 
-      $(document).on("click",".transaksi-delete-item",function(e){
-        var rowid = $(this).attr("data-cart");
-        //$el.faLoading();
-        $.get('<?php echo base_url('kasir/delete_cart/'); ?>'+rowid,
-            function(data,status){
-                if(status == 'success'  && data != 'false'){
-                    $("#"+rowid).remove();
-                    console.log(data);
-                    $("#total").text('Rp. '+data);
-                    //$el.faLoading(false);
-                }                
-            }
-        );
-    });
+	      $(document).on("click",".transaksi-delete-item",function(e){
+	        var rowid = $(this).attr("data-cart");
+	        //$el.faLoading();
+	        $.get('<?php echo base_url('kasir/delete_cart/'); ?>'+rowid,
+	            function(data,status){
+	                if(status == 'success'  && data != 'false'){
+	                    $("#"+rowid).remove();
+	                    console.log(data);
+	                    $("#total").text('Rp. '+data);
+	                    //$el.faLoading(false);
+	                }                
+	            }
+	        );
+	    });
+
+	    $(document).on("click","#btn-simpan",function(e){
+	        var id_kelas = $("#id_kelas").val();
+	        var id_customer = $("#id_customer").val();
+	        var status = $("#status").val();
+
+	        var data = {id_kelas:id_kelas,
+      					id_customer:id_customer,
+      					status:status
+      			}
+      		$.ajax({
+	            type: 'POST',
+	            url: "<?php echo base_url('kasir/simpan_klaim'); ?>",
+	            data:data,
+	            dataType : 'json',
+	            success: function(data) {
+	              if(data.status=='sukses'){
+	              	window.location.href = "<?php echo base_url('kasir/hasil/') ?>"+data.id_klaim;
+	              }else{
+	              	toastr.error('data tidak lengkap silahkan lengkapi terlebih dahulu')
+	              }
+	            }
+	        });
+	      
+	    });
 	});
 
 function price(input){
