@@ -43,5 +43,6 @@
     });
 </script>
 <?php include(APPPATH.'views/ajax/main_ajax.php'); ?>
+<?php include(APPPATH.'views/ajax/kasir_ajax.php'); ?>
 </body>
 </html>
